@@ -46,6 +46,16 @@ public class Student extends User {
 		this(firstName, lastName, id, email, password, MAX_CREDITS);
 	}
 
+	
+	/**
+	 * 
+	 */
+	public int getCurrentCredits() {
+		return courses.stream()
+				.mapToInt(Course::getCredits)
+				.sum();
+	}
+	
 	/**
 	 * @return the maxCredits
 	 */
@@ -57,7 +67,7 @@ public class Student extends User {
 	 * @param maxCredits the maxCredits to set
 	 */
 	public void setMaxCredits(int maxCredits) {
-		if (maxCredits < 0 || maxCredits > MAX_CREDITS) {
+		if (maxCredits < 0 || maxCredits > MAX_CREDITS || maxCredits < getCurrentCredits()) {
 			throw new IllegalArgumentException();
 		}
 		this.maxCredits = maxCredits;
@@ -68,8 +78,7 @@ public class Student extends User {
 	 */
 	@Override
 	public boolean canAddCourse(Course c) {
-		// TODO Auto-generated method stub
-		return false;
+		return (getCurrentCredits() + c.getCredits() <= maxCredits) && (courses.contains(c)==false);
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +86,11 @@ public class Student extends User {
 	 */
 	@Override
 	public boolean addCourse(Course c) {
-		// TODO Auto-generated method stub
+		if (canAddCourse(c)) {
+			if (courses.add(c)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -86,8 +99,7 @@ public class Student extends User {
 	 */
 	@Override
 	public boolean removeCourse(Course c) {
-		// TODO Auto-generated method stub
-		return false;
+		return courses.remove(c);
 	}
 
 	/* (non-Javadoc)
@@ -95,8 +107,8 @@ public class Student extends User {
 	 */
 	@Override
 	public Course[] getCourses() {
-		// TODO Auto-generated method stub
-		return null;
+		Course [] c = new Course[courses.size()];
+		return courses.toArray(c);
 	}
 
 	/* (non-Javadoc)
