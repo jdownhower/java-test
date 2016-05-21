@@ -3,6 +3,8 @@
  */
 package my_package.users;
 
+import my_package.courses.Course;
+
 /**
  * @author jim2
  *
