@@ -122,8 +122,8 @@ public abstract class User {
 	 */
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", id=" + id + ", email=" + email
-				+ ", password=" + password + "]";
+		return firstName + "," + lastName + "," + id + "," + email
+				+ "," + password;
 	}
 
 	/* (non-Javadoc)

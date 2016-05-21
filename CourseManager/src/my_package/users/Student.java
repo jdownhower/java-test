@@ -4,6 +4,7 @@
 package my_package.users;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import my_package.courses.Course;
 
@@ -96,6 +97,51 @@ public class Student extends User {
 	public Course[] getCourses() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((courses == null) ? 0 : courses.hashCode());
+		result = prime * result + maxCredits;
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (courses == null) {
+			if (other.courses != null)
+				return false;
+		} else if (!courses.equals(other.courses))
+			return false;
+		if (maxCredits != other.maxCredits)
+			return false;
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return super.toString() + "," + maxCredits 
+				+ courses.stream()
+				.map(Course::getName)
+				.collect(Collectors.joining(","));
 	}
 
 }
