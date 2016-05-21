@@ -1,7 +1,7 @@
 /**
  * 
  */
-package my_package;
+package my_package.users;
 
 /**
  * @author jim2
