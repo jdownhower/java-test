@@ -63,8 +63,10 @@ public class StudentRecordIO {
 				if (c == null) {
 					throw new NoSuchElementException();
 				}
-				if (!s.addCourse(c)) {
-					throw new NoSuchElementException();
+				
+				if (s.canAddCourse(c) && c.canEnroll(s)) {
+					s.addCourse(c);
+					c.enroll(s);
 				}
 			} 
 			lineScanner.close();

@@ -12,6 +12,7 @@ import java.util.List;
 
 import my_package.courses.Course;
 import my_package.io.CourseRecordIO;
+import my_package.io.StudentRecordIO;
 import my_package.users.Student;
 import my_package.users.User;
 
@@ -220,4 +221,43 @@ public class CourseManager {
 	    return null;
 	}
 	
+	/**
+	 * Loads the list of Students from the given file.
+	 * @param fileName name of file containing students
+	 */
+	public void loadStudents(String fileName) {
+		this.studentFileName = fileName;
+		try {
+			List<Student> studentsFromFile = StudentRecordIO.readStudentRecords(studentFileName);
+			for (Student s : studentsFromFile) {
+				addStudent(s);
+			}
+		} catch (FileNotFoundException e) {
+			throw new IllegalArgumentException(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Adds a student to the list of students. 
+	 * @param student Student to add
+	 */
+	public void addStudent(Student student) {
+		for (Student s: students) {
+			if (s.equals(student)) {
+				return;
+			}
+		}
+		students.add(student);
+	}
+	
+	/**
+	 * Writes the list of Students to the studentFileName.
+	 */
+	public void saveStudents() {
+		try {
+			StudentRecordIO.writeStudentRecords(studentFileName, students);
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e.getMessage());
+		}
+	}
 }
