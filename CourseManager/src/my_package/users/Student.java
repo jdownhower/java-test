@@ -150,10 +150,14 @@ public class Student extends User {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "," + maxCredits 
-				+ courses.stream()
-				.map(Course::getName)
-				.collect(Collectors.joining(","));
+		String result = super.toString() + "," + maxCredits;
+		if (courses.size() > 0) {
+			result += ","  
+					+ courses.stream()
+					.map(Course::getName)
+					.collect(Collectors.joining(","));
+		}
+		return result;
 	}
 
 }

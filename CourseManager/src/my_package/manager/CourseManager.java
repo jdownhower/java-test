@@ -210,5 +210,14 @@ public class CourseManager {
 			throw new IllegalArgumentException(e.getMessage());
 		}
 	}
+
+	public Course getCourseByName(String name) {
+	    for(Course c : courses) {
+	        if(c.getName().equals(name)) {
+	            return c;
+	        }
+	    }
+	    return null;
+	}
 	
 }
